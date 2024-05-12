@@ -1,0 +1,20 @@
+{
+  "name": "@faddys/ma-captain-qisho",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FaddysStudio/MaCaptainQisho.git"
+  },
+  "author": "Faddy Michel <faddy.michel@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FaddysStudio/MaCaptainQisho/issues"
+  },
+  "homepage": "https://github.com/FaddysStudio/MaCaptainQisho#readme",
+  "dependencies": {
+    "@faddys/command": "^5.0.1",
+    "@faddys/scenarist": "^2.1.0"
+  }
+}

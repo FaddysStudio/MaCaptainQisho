@@ -1,0 +1,6 @@
+#include "/home/faddymichel/studio/MaCaptainQisho/header/undefined"
+
+#include "/home/faddymichel/studio/MaCaptainQisho/kit/calltone.orc"
+#include "/home/faddymichel/studio/MaCaptainQisho/kit/loop.orc"
+#include "/home/faddymichel/studio/MaCaptainQisho/kit/recorder.orc"
+#include "/home/faddymichel/studio/MaCaptainQisho/kit/sample.orc" 
