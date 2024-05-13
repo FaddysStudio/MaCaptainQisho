@@ -32,14 +32,16 @@ await $ ( $$ ( 'score' ) );
 async $_orchestra ( $ ) {
 
 const maestro = this;
-const kit = await maestro .list ( 'kit' );
+const kit = maestro .kit = ( await maestro .list ( 'kit' ) )
+.filter ( instrument => instrument .endsWith ( '.orc' ) )
+.map ( instrument => instrument .slice ( 0, instrument .length - 4 ) );
 const orchestra = await command ( 'cat', '-', '>', maestro .path + '/index.orc' );
 
 await orchestra ( `#include "${ maestro .path }/header/${ maestro .header }.orc"
 
-${ kit .filter ( instrument => instrument .endsWith ( '.orc' ) )
-.map ( instrument => `#include "${ maestro .path }/kit/${ instrument }"` )
-.join ( '\n' )
+${ kit .map ( ( instrument, index ) => `#define ${ instrument } #${ index + 1 }#
+#include "${ maestro .path }/kit/${ instrument }.orc"` )
+.join ( '\n\n' )
 
 } ` );
 
@@ -50,6 +52,7 @@ await orchestra ( $$ ( 'end' ) );
 async $_score ( $ ) {
 
 const maestro = this;
+const kit = maestro .kit .map ( ( instrument, index ) => `#define ${ instrument } #${ index + 1 }#` ) .join ( '\n' );
 const beats = ( await maestro .list ( 'beat' ) )
 .filter ( beat => beat .endsWith ( '.sco' ) )
 .map ( beat => `#include "${ maestro .path }/beat/${ beat }` ) .join ( '\n' );
@@ -59,7 +62,7 @@ throw 'Empty beats directory';
 
 const score = await command ( 'cat', '-', '>', maestro .path + '/index.sco' );
 
-await score ( beats );
+await score ( kit + '\n\n' + beats );
 await score ( $$ ( 'end' ) );
 
 }
